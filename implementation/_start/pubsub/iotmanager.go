@@ -29,6 +29,6 @@ func NewIoTtHandler(subID string, projectID string, m model.IMessageRouter) {
 	sub.ReceiveSettings.Synchronous = true
 	sub.ReceiveSettings.MaxOutstandingMessages = 100
 
-	SubscriptionHandler.NewMessageHandler()
+	SubscriptionHandler.NewMessageHandler(sub, ctx)
 
 }

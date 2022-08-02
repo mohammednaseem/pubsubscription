@@ -6,14 +6,14 @@ import (
 	"github.com/gcp-iot/model"
 )
 
-type registryUsecase struct {
-	invokerService model.IHTTPEndpointInvoker
+type registryService struct {
 	contextTimeout time.Duration
+	baseUrl        string
 }
 
-func NewIoTUsecase(i model.IHTTPEndpointInvoker, timeout time.Duration) model.IMessageRouter {
-	return &registryUsecase{
-		invokerService: i,
+func NewIoTService(timeout time.Duration, url string) model.IHTTPEndpointInvoker {
+	return &registryService{
 		contextTimeout: timeout,
+		baseUrl:        url,
 	}
 }
