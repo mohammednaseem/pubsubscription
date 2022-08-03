@@ -8,12 +8,10 @@ import (
 
 type registryService struct {
 	contextTimeout time.Duration
-	baseUrl        string
 }
 
-func NewIoTService(timeout time.Duration, url string) model.IHTTPEndpointInvoker {
+func NewIoTService(timeout time.Duration) model.IHTTPEndpointInvoker {
 	return &registryService{
 		contextTimeout: timeout,
-		baseUrl:        url,
 	}
 }

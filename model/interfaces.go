@@ -12,9 +12,7 @@ type IMessageRouter interface {
 }
 
 type IHTTPEndpointInvoker interface {
-	HttpPost(ctx context.Context, entity string, body string) (Response, error)
-	HttpPatch(ctx context.Context, entity string, body string) (Response, error)
-	HttpDelete(ctx context.Context, entity string, body string) (Response, error)
+	HttpReq(ctx context.Context, method string, entity string, body string, path string) (Response, error)
 
 	// CreateDevice(ctx context.Context, registry string) (Response, error)
 	// UpdateDevice(ctx context.Context, registry string) (Response, error)

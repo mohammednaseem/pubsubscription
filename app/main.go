@@ -66,9 +66,19 @@ func main() {
 		log.Fatal().Msg("Base Url Not Found")
 
 	}
-	_iotService := iotService.NewIoTService(timeoutContext, baseUrl)
-	_iotUsecase := iotUsecase.NewIoTUsecase(_iotService, timeoutContext)
-	iotStart.NewIoTtHandler("test-sub", "my-iot-356305", _iotUsecase)
+	subId := viper.GetString("ENV_SUB_ID")
+	if subId == "" {
+		log.Fatal().Msg("Sub Id Not Found")
+
+	}
+	projectId := viper.GetString("ENV_PROJECT_ID")
+	if projectId == "" {
+		log.Fatal().Msg("PROJECT ID Not Found")
+
+	}
+	_iotService := iotService.NewIoTService(timeoutContext)
+	_iotUsecase := iotUsecase.NewIoTUsecase(_iotService, timeoutContext, baseUrl)
+	iotStart.NewIoTtHandler(subId, projectId, _iotUsecase)
 
 	//log.Fatal(e.Start(viper.GetString("ENV_AUTH_SERVER")))
 }
