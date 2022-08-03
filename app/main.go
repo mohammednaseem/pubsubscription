@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	iotStart "github.com/gcp-iot/implementation/_start/pubsub"
-	iotService "github.com/gcp-iot/implementation/service/http"
-	iotUsecase "github.com/gcp-iot/implementation/usecase"
+	subStart "github.com/gcp-iot/implementation/_start/pubsub"
+	subService "github.com/gcp-iot/implementation/service/http"
+	subUsecase "github.com/gcp-iot/implementation/usecase"
 	"github.com/rs/zerolog/log"
 
 	"github.com/labstack/echo"
@@ -76,9 +76,9 @@ func main() {
 		log.Fatal().Msg("PROJECT ID Not Found")
 
 	}
-	_iotService := iotService.NewIoTService(timeoutContext)
-	_iotUsecase := iotUsecase.NewIoTUsecase(_iotService, timeoutContext, baseUrl)
-	iotStart.NewIoTtHandler(subId, projectId, _iotUsecase)
+	_subService := subService.NewSubService(timeoutContext)
+	_subUsecase := subUsecase.NewSubUsecase(_subService, timeoutContext, baseUrl)
+	subStart.NewSubHandler(subId, projectId, _subUsecase)
 
 	//log.Fatal(e.Start(viper.GetString("ENV_AUTH_SERVER")))
 }

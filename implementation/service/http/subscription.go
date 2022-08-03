@@ -11,7 +11,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func (i *registryService) HttpReq(ctx context.Context, method string, entity string, body string, path string) (model.Response, error) {
+func (i *subService) HttpOperation(ctx context.Context, method string, entity string, body string, path string) (model.Response, error) {
 
 	client := http.Client{}
 	var dr model.Response

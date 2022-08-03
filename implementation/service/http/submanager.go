@@ -6,12 +6,12 @@ import (
 	"github.com/gcp-iot/model"
 )
 
-type registryService struct {
+type subService struct {
 	contextTimeout time.Duration
 }
 
-func NewIoTService(timeout time.Duration) model.IHTTPEndpointInvoker {
-	return &registryService{
+func NewSubService(timeout time.Duration) model.IHTTPEndpointInvoker {
+	return &subService{
 		contextTimeout: timeout,
 	}
 }

@@ -12,7 +12,7 @@ type iSubscriptionHandler struct {
 	MessageRouter model.IMessageRouter
 }
 
-func NewIoTtHandler(subID string, projectID string, m model.IMessageRouter) {
+func NewSubHandler(subID string, projectID string, m model.IMessageRouter) {
 	SubscriptionHandler := &iSubscriptionHandler{
 		MessageRouter: m,
 	}
