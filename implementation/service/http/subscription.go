@@ -19,11 +19,13 @@ func (i *subService) HttpOperation(ctx context.Context, method string, entity st
 	request.Header.Set("Content-Type", "application/json")
 	if err != nil {
 		log.Error().Err(err).Msg("")
+		return dr, err
 	}
 
 	resp, err := client.Do(request)
 	if err != nil {
 		log.Error().Err(err).Msg("")
+		return dr, err
 	}
 	if resp.StatusCode != 200 {
 		log.Error().Err(err).Msg(fmt.Sprintf("Response is %d", resp.StatusCode))

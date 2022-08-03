@@ -20,6 +20,7 @@ func (i *subUsecase) DecodeMessage(ctx context.Context, msg *pubsub.Message) (mo
 	dr, err := i.subService.HttpOperation(ctx, method, entity, data, i.baseUrl+path)
 	if err != nil {
 		log.Error().Err(err).Msg("")
+		return dr, err
 	}
 	return dr, err
 }

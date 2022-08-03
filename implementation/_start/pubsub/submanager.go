@@ -3,6 +3,7 @@ package pubsub
 import (
 	"context"
 	"fmt"
+	"log"
 
 	"cloud.google.com/go/pubsub"
 	"github.com/gcp-iot/model"
@@ -19,7 +20,7 @@ func NewSubHandler(subID string, projectID string, m model.IMessageRouter) {
 	ctx := context.Background()
 	client, err := pubsub.NewClient(ctx, projectID)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal().Err(err).Msg("")
 	}
 	defer client.Close()
 

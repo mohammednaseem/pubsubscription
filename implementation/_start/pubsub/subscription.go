@@ -25,6 +25,7 @@ func (r *iSubscriptionHandler) NewMessageHandler(sub *pubsub.Subscription, ctx c
 	})
 	if err != nil {
 		log.Error().Err(err).Msg("")
+		return err
 	}
 	log.Info().Msg(fmt.Sprintf("Received %d", received))
 	return err
