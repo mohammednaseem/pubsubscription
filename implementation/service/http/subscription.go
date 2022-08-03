@@ -29,7 +29,7 @@ func (i *subService) HttpOperation(ctx context.Context, method string, entity st
 	}
 	if resp.StatusCode != 200 {
 		log.Error().Err(err).Msg(fmt.Sprintf("Response is %d", resp.StatusCode))
-		return dr, errors.New("Http Request TO Device Manager Failed")
+		return dr, errors.New("http request to device manager failed")
 	}
 
 	dr.StatusCode = resp.StatusCode
