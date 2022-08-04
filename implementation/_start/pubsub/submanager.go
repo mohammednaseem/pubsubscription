@@ -1,12 +1,10 @@
 package pubsub
 
 import (
-	"context"
-	"fmt"
-	"log"
-
 	"cloud.google.com/go/pubsub"
+	"context"
 	"github.com/gcp-iot/model"
+	"github.com/rs/zerolog/log"
 )
 
 type iSubscriptionHandler struct {
