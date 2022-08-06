@@ -1,10 +1,9 @@
 package pubsub
 
 import (
+	"cloud.google.com/go/pubsub"
 	"context"
 	"fmt"
-
-	"cloud.google.com/go/pubsub"
 	"github.com/rs/zerolog/log"
 )
 
@@ -20,6 +19,7 @@ func (r *iSubscriptionHandler) NewMessageHandler(sub *pubsub.Subscription, ctx c
 			cancel()
 		} else {
 			msg.Ack()
+			log.Info().Msg("Acknowledged Message")
 		}
 
 	})
