@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"errors"
 
 	"cloud.google.com/go/pubsub"
 	"github.com/gcp-iot/model"
@@ -16,6 +17,10 @@ func (i *subUsecase) DecodeMessage(ctx context.Context, msg *pubsub.Message) (mo
 	data := gjson.Get(string(msg.Data), "data").String()
 	path := gjson.Get(string(msg.Data), "path").String()
 	method := gjson.Get(string(msg.Data), "operation").String()
+	if entity == "" || data == "" || path == "" || method == "" {
+		log.Error().Msg("Publish Format Unknown")
+		return model.Response{}, errors.New("unknown publish")
+	}
 	log.Info().Msg(method + entity + path)
 	dr, err := i.subService.HttpOperation(ctx, method, entity, data, i.baseUrl+path)
 	if err != nil {

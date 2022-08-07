@@ -27,7 +27,7 @@ func (*subService) HttpOperation(_ context.Context, method string, _ string, bod
 		log.Error().Err(err).Msg("")
 		return dr, err
 	}
-	if resp.StatusCode != 200 {
+	if resp.StatusCode >= 300 || resp.StatusCode <= 200 {
 		log.Error().Err(err).Msg(fmt.Sprintf("Response is %d", resp.StatusCode))
 		return dr, errors.New("http request to device manager failed")
 	}

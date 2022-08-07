@@ -15,7 +15,7 @@ func (r *iSubscriptionHandler) NewMessageHandler(sub *pubsub.Subscription, ctx c
 		cctx, cancel := context.WithCancel(cctx)
 		_, err := r.MessageRouter.DecodeMessage(ctx, msg)
 		if err != nil {
-			log.Error().Err(err).Msg("")
+			log.Error().Err(err).Msg("Not Acknowledged")
 			cancel()
 		} else {
 			msg.Ack()
