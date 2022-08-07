@@ -11,7 +11,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func (_ *subService) HttpOperation(_ context.Context, method string, _ string, body string, path string) (model.Response, error) {
+func (*subService) HttpOperation(_ context.Context, method string, _ string, body string, path string) (model.Response, error) {
 
 	client := http.Client{}
 	var dr model.Response
