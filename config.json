@@ -1,6 +1,6 @@
 {
     "debug" : "true",
-    "ENV_BASE_URL":"http://127.0.0.1:8092/",
+    "ENV_BASE_URL":"https://controlplane-dev.cloud.korewireless.com/",
     "ENV_SUB_ID":"test-sub",
-    "ENV_PROJECT_ID":"my-iot-356305"
+    "ENV_PROJECT_ID":"famous-palisade-356103"
 }
