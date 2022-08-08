@@ -3,15 +3,15 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"strings"
 	"time"
 
-	iotStart "github.com/gcp-iot/implementation/_start/pubsub"
-	iotService "github.com/gcp-iot/implementation/service/http"
-	iotUsecase "github.com/gcp-iot/implementation/usecase"
+	subStart "github.com/gcp-iot/implementation/_start/pubsub"
+	subService "github.com/gcp-iot/implementation/service/http"
+	subUsecase "github.com/gcp-iot/implementation/usecase"
+	"github.com/rs/zerolog/log"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -22,7 +22,7 @@ import (
 func init() {
 	path, err := os.Getwd()
 	if err != nil {
-		log.Println(err)
+		log.Error().Err(err).Msg("")
 	}
 	fmt.Println(`path: ` + path)
 	viper.SetConfigType(`json`)
@@ -38,7 +38,7 @@ func init() {
 	}
 
 	if viper.GetBool(`debug`) {
-		log.Println("Service RUN on DEBUG mode")
+		log.Info().Msg("Service RUN on DEBUG mode")
 	}
 }
 
@@ -61,19 +61,24 @@ func main() {
 	}))
 
 	timeoutContext := time.Duration(viper.GetInt("CONTEXT.TIMEOUT")) * time.Second
+	baseUrl := viper.GetString("ENV_BASE_URL")
+	if baseUrl == "" {
+		log.Fatal().Msg("Base Url Not Found")
 
-	gcpurl := viper.GetString("ENV_GCPPORT")
-	if gcpurl == "" {
-		gcpurl = viper.GetString(`gcp_port`)
 	}
+	subId := viper.GetString("ENV_SUB_ID")
+	if subId == "" {
+		log.Fatal().Msg("Sub Id Not Found")
 
-	if gcpurl == "" {
-		fmt.Println("Configuration Error: ENV_PPSA address not available")
 	}
+	projectId := viper.GetString("ENV_PROJECT_ID")
+	if projectId == "" {
+		log.Fatal().Msg("PROJECT ID Not Found")
 
-	_iotService := iotService.NewRegistryService(gcpurl)
-	_iotUsecase := iotUsecase.NewIoTUsecase(_iotService, timeoutContext)
-	iotStart.NewIoTtHandler(e, _iotUsecase)
+	}
+	_subService := subService.NewSubService(timeoutContext)
+	_subUsecase := subUsecase.NewSubUsecase(_subService, timeoutContext, baseUrl)
+	subStart.NewSubHandler(subId, projectId, _subUsecase)
 
-	log.Fatal(e.Start(viper.GetString("ENV_AUTH_SERVER")))
+	//log.Fatal(e.Start(viper.GetString("ENV_AUTH_SERVER")))
 }

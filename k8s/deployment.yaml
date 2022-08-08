@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pub-sub
+  namespace: default
+  labels:
+    app: pub-sub
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pub-sub
+  template:
+    metadata:
+      labels:
+        app: pub-sub
+    spec:
+      containers:
+      - name: pub-sub
+        image: asia-east1-docker.pkg.dev/famous-palisade-356103/pub-sub:$REVISION_ID
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ENV_BASE_URL
+          value: "http://127.0.0.1:8092/"
+        - name: ENV_SUB_ID
+          value: "test-sub"
+        - name: ENV_PROJECT_ID
+          value: "my-iot-356305"
+  #    imagePullSecrets:
+   #     - name: topsecret
